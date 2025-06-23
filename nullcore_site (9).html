@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NullCore</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@900&display=swap');
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: radial-gradient(circle at center, #020024, #090979, #000000);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      font-family: 'Orbitron', sans-serif;
+      cursor: none;
+    }
+
+    h1 {
+      color: #00ffff;
+      font-size: 6rem;
+      text-shadow:
+        0 0 10px #00ffff,
+        0 0 20px #00ffff,
+        0 0 40px #00ffff,
+        0 0 60px #00f0f0,
+        0 0 80px #00e0e0,
+        0 0 100px #00d0d0;
+      animation: pulse 2s infinite alternate;
+      z-index: 2;
+      margin: 2rem;
+      padding: 1rem;
+      box-sizing: border-box;
+    }
+
+    @keyframes pulse {
+      from {
+        text-shadow: 0 0 10px #00ffff, 0 0 20px #00cccc;
+      }
+      to {
+        text-shadow: 0 0 20px #00ffff, 0 0 40px #00cccc;
+      }
+    }
+
+    .stars {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      animation: twinkle 2s infinite;
+      opacity: 0.5;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 1; }
+    }
+
+    .button-container {
+      display: flex;
+      gap: 1rem;
+      z-index: 2;
+    }
+
+    .redirect-button {
+      background-color: transparent;
+      border: 2px solid #00ffff;
+      color: #00ffff;
+      font-size: 1.5rem;
+      padding: 1rem 2rem;
+      border-radius: 5px;
+      cursor: pointer;
+      text-shadow: 0 0 5px #00ffff;
+      transition: box-shadow 0.3s ease, transform 0.2s ease, background-color 0.2s;
+    }
+
+    .redirect-button:hover {
+      box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff;
+      transform: scale(1.05);
+      background-color: rgba(0, 255, 255, 0.1);
+    }
+
+    .cursor-glow {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      pointer-events: none;
+      background: rgba(0,255,255,0.8);
+      box-shadow: 0 0 15px #00ffff, 0 0 25px #00ffff;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.05s linear;
+    }
+  </style>
+</head>
+<body>
+  <div class="stars"></div>
+  <div class="cursor-glow"></div>
+  <h1>NullCore</h1>
+  <div class="button-container">
+    <button class="redirect-button" onclick="window.location.href='https://discord.gg/F2zmB7q4rB'">Join Discord</button>
+    <button class="redirect-button" onclick="window.location.href='https://www.youtube.com/@ThatOneAkaThat1'">YouTube</button>
+  </div>
+
+  <!-- Audio autoplay with valid relative path -->
+  <audio id="bg-music" autoplay loop>
+    <source src="SpotiDownloader.com - drunken fist style - jo.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    // Generate animated stars
+    const stars = document.querySelector('.stars');
+    for (let i = 0; i < 150; i++) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      star.style.top = `${Math.random() * 100}%`;
+      star.style.left = `${Math.random() * 100}%`;
+      star.style.animationDuration = `${1 + Math.random() * 3}s`;
+      stars.appendChild(star);
+    }
+
+    // Mouse follow glow (refined)
+    const glow = document.querySelector('.cursor-glow');
+    document.addEventListener('mousemove', (e) => {
+      glow.style.left = e.clientX + 'px';
+      glow.style.top = e.clientY + 'px';
+    });
+
+    // Ensure audio plays after user interaction (mobile/desktop browser compatibility)
+    window.addEventListener('click', () => {
+      const audio = document.getElementById('bg-music');
+      if (audio.paused) {
+        audio.play();
+      }
+    });
+  </script>
+</body>
+</html>
